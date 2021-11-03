@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MySqlConnector;
+
+namespace prototipo_turma
+{
+    class Turmas
+    {
+        public int idturma, professor, curso;
+        public DateTime hora_inicio, hora_termino, data_inicio, data_termino;
+
+        string turmas = "tbl";
+
+        Conexao obj = new Conexao();
+
+        public void CadastrarTumas()
+        {
+            string inserir = $"insert into {tbl} values('{idturma}','{professor}','{hora_inicio}','{hora_termino}','{data_inicio}','{data_termino}','{curso}')";
+            obj.ExecutarComando(inserir);
+        }
+
+        public DataTable Listar()
+        {
+            string listar = $"select * from {tbl} order idturma";
+            return obj.ExecutarConsulta(listar);
+        }
+
+        public void Ecluir()
+        {
+            string deletar = $"delete from {tbl} where idturma = {idturma}";
+            obj.ExecutarComando(deletar);
+        }
+
+        public void Alterar()
+        {
+            string alterar = $"update {tbl} SET idturma = '{idturma}', professor = '{professor}', data_inicio = '{data_inicio}', data_termino = '{data_termino}'" +
+                $"hora_inicio = '{hora_inicio}', hora_termino = '{hora_termino}', curso = '{curso}'";
+            obj.ExecutarComando(alterar);
+        }
+
+    }
+}

@@ -1,0 +1,101 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace prototipo_turma
+{
+    public partial class Form1 : Form
+    {
+        Turmas objturmas = new Turmas();
+        public Form1()
+        {
+            InitializeComponent();
+            dtgTurma.DataSource = objturmas.Listar();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btncadastrar_Click(object sender, EventArgs e)
+        {
+            objturmas.idturma = int.Parse(idturma.Text);
+            objturmas.professor = int.Parse(professor.Text);
+            objturmas.hora_inicio = DateTime.Parse(txthora_inicio.Text);
+            objturmas.hora_termino = DateTime.Parse(txthora_termino.Text);
+            objturmas.data_inicio = DateTime.Parse(data_inicio.Text);
+            objturmas.data_termino = DateTime.Parse(data_termino.Text);
+            objturmas.curso = int.Parse(curso.Text);
+
+            objturmas.CadastrarTumas();
+            MessageBox.Show("Cadastrado");
+
+            idturma.Clear();
+            txthora_inicio.Clear();
+            txthora_termino.Clear();
+
+            dtgTurma.DataSource = objturmas.Listar();
+        }
+
+        private void dtgTurma_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int.Parse(idturma.Text = dtgTurma.Rows[e.RowIndex].Cells[0].Value.ToString());
+            int.Parse(professor.Text = dtgTurma.Rows[e.RowIndex].Cells[1].Value.ToString());
+            DateTime.Parse(txthora_inicio.Text = dtgTurma.Rows[e.RowIndex].Cells[2].Value.ToString());
+            DateTime.Parse(txthora_termino.Text = dtgTurma.Rows[e.RowIndex].Cells[3].Value.ToString());
+            DateTime.Parse(data_inicio.Text = dtgTurma.Rows[e.RowIndex].Cells[4].Value.ToString());
+            DateTime.Parse(data_termino.Text = dtgTurma.Rows[e.RowIndex].Cells[5].Value.ToString());
+            int.Parse(curso.Text = dtgTurma.Rows[e.RowIndex].Cells[6].Value.ToString());
+        }
+
+        private void btnexcluir_Click(object sender, EventArgs e)
+        {
+            objturmas.idturma = int.Parse(idturma.Text);
+            objturmas.Ecluir();
+            MessageBox.Show("Registro excluido.");
+
+            idturma.Clear();
+            txthora_inicio.Clear();
+            txthora_termino.Clear();
+
+            dtgTurma.DataSource = objturmas.Listar();
+        }
+
+        private void btnalterar_Click(object sender, EventArgs e)
+        {
+            objturmas.idturma = int.Parse(idturma.Text);
+            objturmas.professor = int.Parse(professor.Text);
+            objturmas.hora_inicio = DateTime.Parse(txthora_inicio.Text);
+            objturmas.hora_termino = DateTime.Parse(txthora_termino.Text);
+            objturmas.data_inicio = DateTime.Parse(data_inicio.Text);
+            objturmas.data_termino = DateTime.Parse(data_termino.Text);
+            objturmas.curso = int.Parse(curso.Text);
+
+            objturmas.Alterar();
+
+            idturma.Clear();
+            txthora_inicio.Clear();
+            txthora_termino.Clear();
+
+            dtgTurma.DataSource = objturmas.Listar();
+        }
+
+        private void btnlistar_Click(object sender, EventArgs e)
+        {
+            dtgTurma.DataSource = objturmas.Listar();
+
+            idturma.Clear();
+            txthora_inicio.Clear();
+            txthora_termino.Clear();
+
+            MessageBox.Show("Listagem ok");
+        }
+    }
+}
